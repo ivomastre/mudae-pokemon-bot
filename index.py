@@ -11,7 +11,7 @@ from discord.ext import commands
 from dotenv import load_dotenv
 
 
-class CustomBot(commands.Bot):
+class MudaeBot(commands.Bot):
     def __init__(
         self,
         *args,
@@ -33,7 +33,7 @@ class CustomBot(commands.Bot):
 
 
 async def main():
-    logger = logging.getLogger("MUDAE_POKEMON")
+    logger = logging.getLogger("MUDAE")
     logger.setLevel(logging.INFO)
 
     handler = logging.handlers.RotatingFileHandler(
@@ -52,8 +52,9 @@ async def main():
 
     load_dotenv()  # take environment variables from .env.
 
-    exts = ["pokemon", "autorelease"]
-    async with CustomBot(
+    exts = ["pokemon", "autorelease", "snipe"]
+
+    async with MudaeBot(
         commands.when_mentioned,
         initial_extensions=exts,
         logger=logger,

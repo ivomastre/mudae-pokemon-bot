@@ -16,15 +16,15 @@ class AutoRelease(commands.Cog):
     async def job(self):
         channel = await self.bot.fetch_channel(os.getenv("ARL_CHANNEL_ID", None))
 
-        async def send_pokemon_release(bot, channel):
+        async def send_pokemon_release(channel):
             await asyncio.sleep(20)
 
-            bot.logger.info("Sending $arl")
+            self.bot.logger.info("SENDING_ARL_COMMAND")
             await channel.send("$arl")
 
-        self.bot.loop.create_task(send_pokemon_release(self.bot, channel))
+        self.bot.loop.create_task(send_pokemon_release(channel))
 
-        self.bot.logger.info("Waiting for Mudae response")
+        self.bot.logger.info("MUDAE_RESPONSE_WAITING")
 
         try:
             mudae_response = await self.bot.wait_for(
@@ -42,13 +42,10 @@ class AutoRelease(commands.Cog):
             )
 
         except asyncio.TimeoutError:
-            self.bot.logger.error("Mudae response timed out")
+            self.bot.logger.error("MUDAE_RESPONSE_TIMED_OUT")
             return
 
-        print(mudae_response.content)
         if "Rocket casino" in mudae_response.content:
-            # string structure: **integer** Pokemon given
-
             while True:
                 catcher_response = await asyncio.wait_for(
                     self.pokemon.catcher(), timeout=60 * 60
@@ -57,7 +54,7 @@ class AutoRelease(commands.Cog):
                 if catcher_response["empty"]:
                     break
 
-        self.bot.logger.info("AutoRelease successful")
+        self.bot.logger.info("AUTORELEASE_SUCCESS")
 
 
 async def setup(bot: commands.Bot):

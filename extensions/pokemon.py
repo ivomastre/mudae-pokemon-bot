@@ -18,12 +18,12 @@ class Pokemon(commands.Cog):
         async def send_pokemon_catch(bot, channel):
             await asyncio.sleep(2)
 
-            bot.logger.info("Sending $p")
+            bot.logger.info("SENDING_POKEMON_COMMAND")
             await channel.send("$p 25")
 
         self.bot.loop.create_task(send_pokemon_catch(self.bot, channel))
 
-        self.bot.logger.info("Waiting for Mudae response")
+        self.bot.logger.info("MUDAE_RESPONSE_WAITING")
 
         try:
             mudae_response = await self.bot.wait_for(
@@ -36,15 +36,14 @@ class Pokemon(commands.Cog):
             )
 
         except asyncio.TimeoutError:
-            self.bot.logger.error("Mudae response timed out")
+            self.bot.logger.error("MUDAE_RESPONSE_TIMED_OUT")
             return
 
-        self.bot.logger.info("Pokemon command successful")
+        self.bot.logger.info("POKEMON_SUCCESS")
 
         # Empty pokeroll detection
 
         if "Remaining time before your next $p" in mudae_response.content:
-            self.bot.logger.info("Empty pokeroll detected")
             return {
                 "empty": True,
                 "remaining_time": (
