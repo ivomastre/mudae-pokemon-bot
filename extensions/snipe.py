@@ -42,6 +42,18 @@ class Snipe(commands.Cog):
 
         embed = message.embeds[0]
 
+        # Check if the roll has a kakera claim
+        kakera_emoji_list = json.loads(os.getenv("KAKERA_EMOJI_LIST"))
+
+        if message.components != [] and message.components[0].children != []:
+            kakera_emoji = message.components[0].children[0]["emoji"]["name"]
+            if kakera_emoji in kakera_emoji_list:
+                # Click the kakera claim button
+                self.bot.logger.info("KAKERA_SNIPER_CLAIM_SUCCESS")
+
+                await message.components[0].children[0].click()
+                return
+
         # Check if the roll is from a wishlist
         # If not, check if the kakera value is above the threshold
         if "Desejado por" not in message.content:
