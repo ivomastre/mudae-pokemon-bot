@@ -29,9 +29,9 @@ class Snipe(commands.Cog):
         if not message.embeds[0].image or not message.embeds[0].author:
             return False
 
-        # Check if theres a pagination in the footer
-
-        if pagination_regex.search(message.embeds[0].footer.text):
+        # Regex to check if there is a pagination in the footer
+        footer_text = message.embeds[0].footer.text
+        if footer_text and pagination_regex.search(footer_text):
             return False
 
         return True
