@@ -37,7 +37,6 @@ class Snipe(commands.Cog):
         return True
 
     async def on_message(self, message: discord.Message):
-        print(message.content)
         if not self.roll_checker(message):
             return
 
