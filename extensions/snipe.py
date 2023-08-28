@@ -37,14 +37,19 @@ class Snipe(commands.Cog):
         return True
 
     async def on_message(self, message: discord.Message):
+        print(message.content)
         if not self.roll_checker(message):
             return
 
         embed = message.embeds[0]
 
-        kakera_value = embed.description.split("\n")[1].split("**")[1]
-        if int(kakera_value) < int(os.getenv("KAKERA_THRESHOLD")):
-            return
+        # Check if the roll is from a wishlist
+        # If not, check if the kakera value is above the threshold
+        if "Desejado por" not in message.content:
+            kakera_value = embed.description.split("\n")[1].split("**")[1]
+
+            if int(kakera_value) < int(os.getenv("KAKERA_THRESHOLD")):
+                return
 
         self.bot.logger.info("KAKERA_SNIPER_SUCCESS")
         await message.add_reaction("👀")

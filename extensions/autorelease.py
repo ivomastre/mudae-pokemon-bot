@@ -24,8 +24,6 @@ class AutoRelease(commands.Cog):
 
         self.bot.loop.create_task(send_pokemon_release(channel))
 
-        self.bot.logger.info("MUDAE_RESPONSE_WAITING")
-
         try:
             mudae_response = await self.bot.wait_for(
                 "message",
