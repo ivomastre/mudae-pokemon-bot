@@ -2,6 +2,8 @@ from discord.ext import tasks, commands
 import discord
 import os
 import re
+import time
+
 
 pagination_regex = re.compile(r"\d+ / \d+")
 
@@ -10,8 +12,8 @@ class Snipe(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-        # Register an event
-        self.bot.event(self.on_message)
+        # Listen to on_message event
+        self.bot.listen("on_message")(self.snipe_tick)
 
     def roll_checker(self, message: discord.Message):
         if (
@@ -36,8 +38,12 @@ class Snipe(commands.Cog):
 
         return True
 
-    async def on_message(self, message: discord.Message):
+    async def snipe_tick(self, message: discord.Message):
         if not self.roll_checker(message):
+            return
+
+        # manual timeout check
+        if time.time() < self.bot.state.timeout:
             return
 
         embed = message.embeds[0]

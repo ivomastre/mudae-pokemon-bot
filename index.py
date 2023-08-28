@@ -2,12 +2,11 @@ import asyncio
 import logging
 import logging.handlers
 import os
-
-from typing import List, Optional
-
 import discord
-from discord.ext import commands
 
+from components.state import State
+from typing import List, Optional
+from discord.ext import commands
 from dotenv import load_dotenv
 
 
@@ -22,6 +21,7 @@ class MudaeBot(commands.Bot):
         super().__init__(*args, **kwargs)
         self.initial_extensions = initial_extensions
         self.logger = logger
+        self.state = State()
 
     async def setup_hook(self) -> None:
         # here, we are loading extensions prior to sync to ensure we are syncing interactions defined in those extensions.
@@ -47,7 +47,7 @@ async def main():
 
     load_dotenv()  # take environment variables from .env.
 
-    exts = ["pokemon", "autorelease", "snipe"]
+    exts = ["pokemon", "autorelease", "snipe", "commands.timeout"]
 
     async with MudaeBot(
         commands.when_mentioned,
