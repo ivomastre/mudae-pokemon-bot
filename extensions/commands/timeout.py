@@ -18,6 +18,10 @@ class Timeout(commands.Cog):
     async def timeout(self, ctx: commands.Context):
         if ctx.channel.id != int(os.getenv("SNIPE_CHANNEL_ID")):
             return
+        
+        # Ignore if the user is already in timeout
+        if time.time() < self.bot.state.timeout:
+            return
 
         timeout_timer = int(os.getenv("TIMEOUT_TIMER"))
 
