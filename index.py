@@ -3,6 +3,8 @@ import logging
 import logging.handlers
 import os
 import discord
+import json
+
 
 from components.state import State
 from typing import List, Optional
@@ -47,7 +49,7 @@ async def main():
 
     load_dotenv()  # take environment variables from .env.
 
-    exts = ["pokemon", "autorelease", "snipe", "commands.timeout"]
+    exts = json.loads(os.getenv("EXTENSION_LIST"))
 
     async with MudaeBot(
         commands.when_mentioned,
