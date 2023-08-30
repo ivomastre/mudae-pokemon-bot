@@ -47,6 +47,8 @@ async def main():
     handler.setFormatter(formatter)
     logger.addHandler(handler)
 
+    discord.utils.setup_logging(formatter=formatter, handler=handler, root=False)
+
     load_dotenv()  # take environment variables from .env.
 
     exts = json.loads(os.getenv("EXTENSION_LIST"))
@@ -55,6 +57,7 @@ async def main():
         commands.when_mentioned_or(os.getenv("PREFIX", "?")),
         initial_extensions=exts,
         logger=logger,
+        self_bot=True,
     ) as bot:
         await bot.start(os.getenv("TOKEN", ""))
 
