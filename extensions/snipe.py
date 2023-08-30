@@ -6,6 +6,8 @@ import time
 import json
 from index import MudaeBot
 
+from utils.catch_all import catch_all
+
 pagination_regex = re.compile(r"\d+ / \d+")
 
 
@@ -14,7 +16,7 @@ class Snipe(commands.Cog):
         self.bot = bot
 
         # Listen to on_message event
-        self.bot.listen("on_message")(self.snipe_tick)
+        self.bot.listen("on_message")(catch_all(self.snipe_tick))
 
     def roll_checker(self, message: discord.Message):
         if (
@@ -66,14 +68,16 @@ class Snipe(commands.Cog):
         # If not, check if the kakera value is above the threshold
         if "Desejado por" not in message.content:
             split_description = embed.description.split("\n")
-            if len(split_description) < 1:
+
+            if len(split_description) < 2:
                 return
+           
             core_description_split = split_description[1].split("**")
 
-            if len(core_description_split) < 1:
+            if len(core_description_split) < 2:
                 return
             
-            kakera_value = split_description[1].split("**")[1]
+            kakera_value = core_description_split[1]
 
             if int(kakera_value) < int(os.getenv("KAKERA_THRESHOLD")):
                 return
