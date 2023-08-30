@@ -9,6 +9,8 @@ class RollMarry(commands.Cog):
         self.bot = bot
         self.roll.start()
 
+        self.bot.logger.info("EXTENSION_LOADED", extra={"extension": "roll_marry"})
+
     @tasks.loop(seconds=10)
     async def roll(self):
         if self.bot.state.timer.rolls_left == 0:
@@ -30,6 +32,9 @@ class RollMarry(commands.Cog):
 
         self.bot.logger.info("ROLL_SUCCESS")
 
+    @roll.before_loop
+    async def before_roll(self):
+        await self.bot.wait_until_ready()
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(RollMarry(bot))

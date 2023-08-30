@@ -22,9 +22,15 @@ async def get_timers(channel: TextChannel, timer_up_command: SlashCommand):
 
         return message.interaction.id == timer_interaction_id
 
-    timer_message = [
+    timer_message_list = [
         message async for message in channel.history() if check_integration(message)
-    ][0]
+    ]
+
+    if len(timer_message_list) == 0:
+        return None
+
+    timer_message = timer_message_list[0]
+
 
     clean_timer = timer_message_cleaner(timer_message)
 

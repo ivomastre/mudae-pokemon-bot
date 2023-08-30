@@ -9,6 +9,8 @@ class Pokemon(commands.Cog):
         self.catcher.start()
         self.bot = bot
 
+        self.bot.logger.info("EXTENSION_LOADED", extra={"extension": "pokemon"})
+
     def cog_unload(self):
         self.catcher.cancel()
 
@@ -57,6 +59,10 @@ class Pokemon(commands.Cog):
             "empty": False,
             "success": True,
         }
+
+    @loop.before_loop
+    async def before_loop(self):
+        await self.bot.wait_until_ready()
 
 
 async def setup(bot: commands.Bot):

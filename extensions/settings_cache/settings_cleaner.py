@@ -20,9 +20,14 @@ async def get_settings(channel: TextChannel, settings_command: SlashCommand):
 
         return message.interaction.id == settings_interaction_id
 
-    settings_message = [
+    settings_message_list = [
         message async for message in channel.history() if check_integration(message)
-    ][0]
+    ]
+
+    if len(settings_message_list) == 0:
+        return None
+
+    settings_message = settings_message_list[0]
 
     clean_settings = settings_response_cleaner(settings_message)
 

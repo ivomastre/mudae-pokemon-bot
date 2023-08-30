@@ -18,6 +18,8 @@ class SettingsCache(commands.Cog):
 
         self.settings_cache.start()
 
+        self.bot.logger.info("EXTENSION_LOADED", extra={"extension": "settings_cache"})
+
     def cog_unload(self):
         self.settings_cache.cancel()
 

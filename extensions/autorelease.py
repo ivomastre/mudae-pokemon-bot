@@ -10,6 +10,8 @@ class AutoRelease(commands.Cog):
         self.bot = bot
         self.pokemon = self.bot.get_cog("Pokemon")
 
+        self.bot.logger.info("EXTENSION_LOADED", extra={"extension": "autorelease"})
+
     def cog_unload(self):
         self.job.cancel()
 
@@ -54,6 +56,10 @@ class AutoRelease(commands.Cog):
                     break
 
         self.bot.logger.info("AUTORELEASE_SUCCESS")
+
+    @job.before_loop
+    async def before_job(self):
+        await self.bot.wait_until_ready()
 
 
 async def setup(bot: commands.Bot):

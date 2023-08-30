@@ -15,8 +15,12 @@ class Snipe(commands.Cog):
     def __init__(self, bot: MudaeBot):
         self.bot = bot
 
+        await self.bot.wait_until_ready()
+        
         # Listen to on_message event
         self.bot.listen("on_message")(catch_all(self.snipe_tick))
+
+        self.bot.logger.info("EXTENSION_LOADED", extra={"extension": "snipe"})
 
     def roll_checker(self, message: discord.Message):
         if (

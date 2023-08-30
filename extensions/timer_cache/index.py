@@ -16,6 +16,7 @@ class TimerCache(commands.Cog):
         self.bot = bot
 
         self.timer_cache.start()
+        self.bot.logger.info("EXTENSION_LOADED", extra={"extension": "settings_cache"})
 
     def cog_unload(self):
         self.timer_cache.cancel()
