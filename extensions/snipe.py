@@ -59,12 +59,21 @@ class Snipe(commands.Cog):
 
         # timeout check
         if time.time() < self.bot.state.timeout:
+            self.bot.logger.info("CLAIM_BLOCKED_TIMEOUT")
             return
 
         # Check if the roll is from a wishlist
         # If not, check if the kakera value is above the threshold
         if "Desejado por" not in message.content:
-            kakera_value = embed.description.split("\n")[1].split("**")[1]
+            split_description = embed.description.split("\n")
+            if len(split_description) < 1:
+                return
+            core_description_split = split_description[1].split("**")
+
+            if len(core_description_split) < 1:
+                return
+            
+            kakera_value = split_description[1].split("**")[1]
 
             if int(kakera_value) < int(os.getenv("KAKERA_THRESHOLD")):
                 return
