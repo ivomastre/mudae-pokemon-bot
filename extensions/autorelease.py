@@ -1,10 +1,11 @@
 from discord.ext import tasks, commands
 import os
 import asyncio
+from index import MudaeBot
 
 
 class AutoRelease(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: MudaeBot):
         self.job.start()
         self.bot = bot
         self.pokemon = self.bot.get_cog("Pokemon")

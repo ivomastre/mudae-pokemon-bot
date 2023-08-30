@@ -52,7 +52,7 @@ async def main():
     exts = json.loads(os.getenv("EXTENSION_LIST"))
 
     async with MudaeBot(
-        commands.when_mentioned,
+        commands.when_mentioned_or(os.getenv("PREFIX", "?")),
         initial_extensions=exts,
         logger=logger,
     ) as bot:
@@ -60,4 +60,5 @@ async def main():
 
 
 # For most use cases, after defining what needs to run, we can just tell asyncio to run it:
-asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(main())

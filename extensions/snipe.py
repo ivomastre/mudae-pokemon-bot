@@ -4,13 +4,13 @@ import os
 import re
 import time
 import json
-
+from index import MudaeBot
 
 pagination_regex = re.compile(r"\d+ / \d+")
 
 
 class Snipe(commands.Cog):
-    def __init__(self, bot):
+    def __init__(self, bot: MudaeBot):
         self.bot = bot
 
         # Listen to on_message event
@@ -43,10 +43,6 @@ class Snipe(commands.Cog):
         if not self.roll_checker(message):
             return
 
-        # manual timeout check
-        if time.time() < self.bot.state.timeout:
-            return
-
         embed = message.embeds[0]
 
         # Check if the roll has a kakera claim
@@ -60,6 +56,10 @@ class Snipe(commands.Cog):
 
                 await message.components[0].children[0].click()
                 return
+
+        # timeout check
+        if time.time() < self.bot.state.timeout:
+            return
 
         # Check if the roll is from a wishlist
         # If not, check if the kakera value is above the threshold
