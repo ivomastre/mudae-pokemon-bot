@@ -14,7 +14,7 @@ class RollMarry(commands.Cog):
         if self.bot.state.timer.rolls_left == 0:
             return
 
-        channel = await self.bot.fetch_channel(os.getenv("CHANNEL_ID", None))
+        channel = await self.bot.fetch_channel(os.getenv("SNIPE_CHANNEL_ID", None))
 
         async def send_marry_roll(channel):
             await channel.send("$m")
