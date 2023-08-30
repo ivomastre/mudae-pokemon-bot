@@ -35,8 +35,8 @@ class AutoRelease(commands.Cog):
                     and m.channel.id == int(channel.id)
                     # arl response detection
                     and (
-                        "Rocket casino" in m.content
-                        or "You need at least one releasable" in m.content
+                        "Rocket" in m.content
+                        or "duplicado para este comando" in m.content
                     )
                 ),
                 timeout=60 * 2,
