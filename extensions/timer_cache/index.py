@@ -24,7 +24,7 @@ class TimerCache(commands.Cog):
     async def timer_cache(self):
         self.bot.logger.info("STARTING_TIMER_CACHE")
 
-        channel = await self.bot.fetch_channel(os.getenv("CHANNEL_ID", None))
+        channel = await self.bot.fetch_channel(os.getenv("SNIPE_CHANNEL_ID", None))
         timer_command_id = int(os.getenv("TIMER_COMMAND_ID", None))
 
         commands_list = [

@@ -25,7 +25,7 @@ class SettingsCache(commands.Cog):
     async def settings_cache(self):
         self.bot.logger.info("STARTING_SETTINGS_CACHE")
 
-        channel = await self.bot.fetch_channel(os.getenv("CHANNEL_ID", None))
+        channel = await self.bot.fetch_channel(os.getenv("SNIPE_CHANNEL_ID", None))
         settings_command_id = int(os.getenv("SETTINGS_COMMAND_ID", None))
 
         commands_list = [
