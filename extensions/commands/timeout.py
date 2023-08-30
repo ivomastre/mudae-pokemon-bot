@@ -8,6 +8,7 @@ from index import MudaeBot
 class Timeout(commands.Cog):
     def __init__(self, bot: MudaeBot):
         self.bot = bot
+        self.bot.logger.info("EXTENSION_LOADED", extra={"extension": "timeout"})
 
     @commands.command()
     async def timeout(self, ctx: commands.Context):
