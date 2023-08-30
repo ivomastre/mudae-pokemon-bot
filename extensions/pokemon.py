@@ -60,8 +60,8 @@ class Pokemon(commands.Cog):
             "success": True,
         }
 
-    @loop.before_loop
-    async def before_loop(self):
+    @catcher.before_loop
+    async def before_catcher(self):
         await self.bot.wait_until_ready()
 
 
