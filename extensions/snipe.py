@@ -14,11 +14,11 @@ pagination_regex = re.compile(r"\d+ / \d+")
 class Snipe(commands.Cog):
     def __init__(self, bot: MudaeBot):
         self.bot = bot
-        
+
         # Listen to on_message event
         self.bot.listen("on_message")(catch_all(self.snipe_tick))
 
-        self.bot.logger.info("EXTENSION_LOADED", extra={"extension": "snipe"})
+        self.bot.logger.info("EXTENSION_LOADED_SNIPE")
 
     def roll_checker(self, message: discord.Message):
         if (
@@ -73,12 +73,12 @@ class Snipe(commands.Cog):
 
             if len(split_description) < 2:
                 return
-           
+
             core_description_split = split_description[1].split("**")
 
             if len(core_description_split) < 2:
                 return
-            
+
             kakera_value = core_description_split[1]
 
             if int(kakera_value) < int(os.getenv("KAKERA_THRESHOLD")):

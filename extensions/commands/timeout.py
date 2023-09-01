@@ -8,7 +8,7 @@ from index import MudaeBot
 class Timeout(commands.Cog):
     def __init__(self, bot: MudaeBot):
         self.bot = bot
-        self.bot.logger.info("EXTENSION_LOADED", extra={"extension": "timeout"})
+        self.bot.logger.info("EXTENSION_LOADED_TIMEOUT")
 
     @commands.command()
     async def timeout(self, ctx: commands.Context):
@@ -19,9 +19,7 @@ class Timeout(commands.Cog):
 
         next_timeout = time.time() + timeout_timer
 
-        self.bot.logger.info(
-            "TIMEOUT_COMMAND_RECEIVED", extra={"timeout": timeout_timer}
-        )
+        self.bot.logger.info(f"TIMEOUT_COMMAND_RECEIVED {timeout_timer}")
 
         self.bot.state.timeout = next_timeout
 

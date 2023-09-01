@@ -9,7 +9,7 @@ class Pokemon(commands.Cog):
         self.catcher.start()
         self.bot = bot
 
-        self.bot.logger.info("EXTENSION_LOADED", extra={"extension": "pokemon"})
+        self.bot.logger.info("EXTENSION_LOADED_POKEMON")
 
     def cog_unload(self):
         self.catcher.cancel()

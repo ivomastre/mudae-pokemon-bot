@@ -10,7 +10,7 @@ class AutoRelease(commands.Cog):
         self.bot = bot
         self.pokemon = self.bot.get_cog("Pokemon")
 
-        self.bot.logger.info("EXTENSION_LOADED", extra={"extension": "autorelease"})
+        self.bot.logger.info("EXTENSION_LOADED_AUTORELEASE")
 
     def cog_unload(self):
         self.job.cancel()
