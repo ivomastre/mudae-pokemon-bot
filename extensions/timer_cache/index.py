@@ -44,9 +44,12 @@ class TimerCache(commands.Cog):
 
         timer_response = await get_timers(channel, timer_up_command)
 
+        print(timer_response)
+
         self.bot.logger.info("TIMER_CACHE_SUCCESS")
 
         self.bot.state.timer = Timer(timer_response)
+        print(self.bot.state.timer)
 
         self.bot.logger.info(self.bot.state)
 
