@@ -31,6 +31,7 @@ class Timer:
 class Settings:
     def __init__(self, obj=None):
         self.marry_claim_reset: int = int(os.getenv("SETTINGS_MARRY_CLAIM_RESET", 0))
+        self.marry_rolls_reset: int = int(os.getenv("SETTINGS_MARRY_ROLLS_RESET", 60))
         self.exact_minute_claim_reset: int = int(
             os.getenv("SETTINGS_EXACT_MINUTE_CLAIM_RESET", 0)
         )

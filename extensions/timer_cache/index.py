@@ -44,18 +44,14 @@ class TimerCache(commands.Cog):
 
         timer_response = await get_timers(channel, timer_up_command)
 
-        print(timer_response)
-
         self.bot.logger.info("TIMER_CACHE_SUCCESS")
 
         self.bot.state.timer = Timer(timer_response)
-        print(self.bot.state.timer)
+
+        # TODO: add human delay
+        self.bot.state.timer.next_roll_time = self.bot.state.timer.rolls_reset + time.time() + 120
 
         self.bot.logger.info(self.bot.state)
-
-        self.bot.state.timer.next_roll_time = (
-            self.bot.state.timer.rolls_reset + time.time() + 120
-        )
 
     @timer_cache.before_loop
     async def before_timer_cache(self):

@@ -20,9 +20,7 @@ class RollMarry(commands.Cog):
             self.bot.state.timer.next_roll_time > 0
             and self.bot.state.timer.next_roll_time < time.time()
         ):
-            self.bot.state.timer.next_roll_time = (
-                self.bot.state.settings.marry_claim_reset + time.time() + 120
-            )
+            self.bot.state.timer.next_roll_time += self.bot.state.settings.marry_rolls_reset
 
             self.bot.logger.info(
                 f"NEXT_ROLL_TIME_UPDATED: {self.bot.state.timer.next_roll_time}"
