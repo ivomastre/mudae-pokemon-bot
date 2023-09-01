@@ -16,7 +16,7 @@ class TimerCache(commands.Cog):
         self.bot = bot
 
         self.timer_cache.start()
-        self.bot.logger.info("EXTENSION_LOADED", extra={"extension": "settings_cache"})
+        self.bot.logger.info("EXTENSION_LOADED_TIMER_CACHE")
 
     def cog_unload(self):
         self.timer_cache.cancel()
@@ -47,6 +47,10 @@ class TimerCache(commands.Cog):
         self.bot.logger.info("TIMER_CACHE_SUCCESS")
 
         self.bot.state.timer = Timer(timer_response)
+
+        self.bot.state.timer.next_roll_time = (
+            timer_response["rolls_reset"] + time.time() + 120
+        )
 
     @timer_cache.before_loop
     async def before_timer_cache(self):

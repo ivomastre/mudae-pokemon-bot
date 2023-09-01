@@ -31,7 +31,6 @@ async def get_timers(channel: TextChannel, timer_up_command: SlashCommand):
 
     timer_message = timer_message_list[0]
 
-
     clean_timer = timer_message_cleaner(timer_message)
 
     return clean_timer
