@@ -41,15 +41,15 @@ class RollMarry(commands.Cog):
 
         channel = await self.bot.fetch_channel(os.getenv("SNIPE_CHANNEL_ID", None))
 
-        async def send_marry_roll(channel):
-            await channel.send("$m")
-
         for _ in range(self.bot.state.timer.rolls_left):
             self.bot.logger.info("SENDING_MARRY_COMMAND")
 
-            await asyncio.sleep(2)
+            await asyncio.sleep(5)
 
-            self.bot.loop.create_task(send_marry_roll(channel))
+            try:
+                await channel.send("$m")
+            except Exception as e:
+                self.bot.logger.error(f"SENDING_MARRY_COMMAND_FAILED: \n{e}")
 
             self.bot.state.timer.rolls_left -= 1
 
