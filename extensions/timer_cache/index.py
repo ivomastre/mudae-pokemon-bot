@@ -48,8 +48,10 @@ class TimerCache(commands.Cog):
 
         self.bot.state.timer = Timer(timer_response)
 
+        self.bot.logger.info(self.bot.state)
+
         self.bot.state.timer.next_roll_time = (
-            timer_response["rolls_reset"] + time.time() + 120
+            self.bot.state.timer.rolls_reset + time.time() + 120
         )
 
     @timer_cache.before_loop
