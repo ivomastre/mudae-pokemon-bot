@@ -88,7 +88,6 @@ class Snipe(commands.Cog):
             if message.components != [] and message.components[0].children != []:
                 await message.components[0].children[0].click()
                 self.bot.logger.info("WISHLIST_SNIPER_CLAIM_SUCCESS")
-                return
 
         self.bot.logger.info("KAKERA_SNIPER_SUCCESS")
         await message.add_reaction("👀")
