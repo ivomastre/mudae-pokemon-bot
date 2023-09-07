@@ -38,6 +38,21 @@ class RollMarry(commands.Cog):
             return
 
         channel = await self.bot.fetch_channel(os.getenv("SNIPE_CHANNEL_ID", None))
+        marry_command_id = int(os.getenv("MARRY_COMMAND_ID", None))
+
+        commands_list = [
+            command
+            async for command in channel.slash_commands(command_ids=[marry_command_id])
+        ]
+
+        if len(commands_list) == 0:
+            self.bot.logger.error("MARRY_COMMAND_NOT_FOUND")
+            return
+
+        # Timer up command
+        marry_command = next(
+            command for command in commands_list if command.id == marry_command_id
+        )
 
         for _ in range(self.bot.state.timer.rolls_left):
             self.bot.logger.info("SENDING_MARRY_COMMAND")
@@ -45,7 +60,7 @@ class RollMarry(commands.Cog):
             await asyncio.sleep(5)
 
             try:
-                await channel.send("$m")
+                await marry_command()
             except Exception as e:
                 self.bot.logger.error(f"SENDING_MARRY_COMMAND_FAILED: \n{e}")
 
