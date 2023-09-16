@@ -42,7 +42,7 @@ class TimerCache(commands.Cog):
             command for command in commands_list if command.id == timer_command_id
         )
 
-        timer_response = await get_timers(channel, timer_up_command)
+        timer_response = await get_timers(channel, timer_up_command, self.bot.logger)
 
         self.bot.logger.info("TIMER_CACHE_SUCCESS")
 

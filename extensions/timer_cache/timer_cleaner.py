@@ -5,14 +5,15 @@ import asyncio
 import time
 import re
 from index import MudaeBot
+from utils.retry import retry
 
 from utils.time_utils import mudae_time_to_seconds
 
 timer_highlight_regex = re.compile(r"\*\*(.+?)\*\*")
 
 
-async def get_timers(channel: TextChannel, timer_up_command: SlashCommand):
-    timer_response = await timer_up_command()
+async def get_timers(channel: TextChannel, timer_up_command: SlashCommand, logger):
+    timer_response = await retry(timer_up_command(), limit=3, logger=logger)
 
     timer_interaction_id = timer_response.id
 
