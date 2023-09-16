@@ -5,6 +5,7 @@ import re
 import time
 import json
 from index import MudaeBot
+import asyncio
 
 from utils.catch_all import catch_all
 
@@ -56,9 +57,12 @@ class Snipe(commands.Cog):
             kakera_emoji = message.components[0].children[0].emoji.name
             if kakera_emoji in kakera_emoji_list:
                 # Click the kakera claim button
-                self.bot.logger.info("KAKERA_SNIPER_CLAIM_SUCCESS")
+                
+                await asyncio.sleep(0.2)
 
                 await message.components[0].children[0].click()
+                self.bot.logger.info(f"KAKERA_SNIPER_CLAIM_SUCCESS: {kakera_emoji}")
+
                 return
 
         # timeout check
@@ -86,11 +90,15 @@ class Snipe(commands.Cog):
 
         else:
             if message.components != [] and message.components[0].children != []:
+                await asyncio.sleep(0.2)
+
                 await message.components[0].children[0].click()
                 self.bot.logger.info("WISHLIST_SNIPER_CLAIM_SUCCESS")
 
-        self.bot.logger.info("KAKERA_SNIPER_SUCCESS")
+        await asyncio.sleep(0.2)
+        
         await message.add_reaction("👀")
+        self.bot.logger.info("KAKERA_SNIPER_SUCCESS")
 
 
 async def setup(bot: commands.Bot):
