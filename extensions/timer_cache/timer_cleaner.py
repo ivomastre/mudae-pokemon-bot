@@ -13,7 +13,7 @@ timer_highlight_regex = re.compile(r"\*\*(.+?)\*\*")
 
 
 async def get_timers(channel: TextChannel, timer_up_command: SlashCommand, logger):
-    timer_response = await retry(timer_up_command(), limit=3, logger=logger)
+    timer_response = await retry(timer_up_command, limit=3, logger=logger)
 
     timer_interaction_id = timer_response.id
 
