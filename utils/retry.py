@@ -1,6 +1,6 @@
 import asyncio
 
-def retry(func, ex_type=Exception, limit=0, wait_ms=100, wait_increase_ratio=2, logger=None):
+async def retry(func, ex_type=Exception, limit=0, wait_ms=100, wait_increase_ratio=2, logger=None):
     """
     Retry a function invocation until no exception occurs
     :param func: function to invoke
@@ -15,7 +15,7 @@ def retry(func, ex_type=Exception, limit=0, wait_ms=100, wait_increase_ratio=2, 
     attempt = 1
     while True:
         try:
-            return func()
+            return await func()
         except Exception as ex:
             if not isinstance(ex, ex_type):
                 raise ex
